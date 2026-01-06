@@ -11,6 +11,8 @@ services:
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TZ}
+    group_add:
+      - "988"  # Docker group GID for socket access
     volumes:
       - ${LOCVOL1}dockhand:/app/data
       - /var/run/docker.sock:/var/run/docker.sock
