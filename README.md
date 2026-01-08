@@ -21,9 +21,15 @@ rm -fr ~/appdata/docker_files/dockhand
 git clone https://github.com/FinchTechSoCal/docker-dockhand.git ~/appdata/docker_files/dockhand
 ```
 
+**Find docker.sock GID**
+```bash
+stat -c '%g' /var/run/docker.sock
+```
+
+
 **Modify .env**
 ```bash
-nano ~/appdata/docker_files/hawser/.env
+nano ~/appdata/docker_files/dockhand/.env
 ```
 
 **Run**
