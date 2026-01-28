@@ -19,6 +19,7 @@
 ```bash
 rm -fr ~/appdata/docker_files/dockhand
 git clone https://github.com/FinchTechSoCal/docker-dockhand.git ~/appdata/docker_files/dockhand
+sed -i 's;/path/to/appdata/;'$HOME'/appdata/;g' ~/appdata/docker_files/dockhand/.env
 ```
 
 **Find docker.sock GID**
@@ -27,7 +28,7 @@ stat -c '%g' /var/run/docker.sock
 ```
 
 
-**Modify .env**
+**Modify .env Further**
 ```bash
 nano ~/appdata/docker_files/dockhand/.env
 ```
