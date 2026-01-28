@@ -1,8 +1,8 @@
 #
 # https://dockhand.pro/manual/
 #
+
 services:
-#
   dockhand:
     image: fnsys/dockhand:latest
     container_name: dockhand
@@ -11,17 +11,53 @@ services:
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TZ}
-    group_add:
-      - "${DOCKER_GID}"  # Docker group GID for socket access
+    #group_add:
+      #- "${DOCKER_GID}"  # Docker group GID for socket access
     volumes:
       - ${LOCVOL1}dockhand:/app/data
       #- /var/run/docker.sock:/var/run/docker.sock
     ports:
       - 3000:3000
     restart: unless-stopped
-#
-#
+    depends_on:
+      - socket-proxy
+    networks:
+      - socket-proxy
+      - default
+  socket-proxy:
+    image: ghcr.io/tecnativa/docker-socket-proxy:master
+    container_name: socket-proxy
+    restart: unless-stopped
+    environment:
+      # Required for Dockhand core functionality
+      - CONTAINERS=1
+      - IMAGES=1
+      - NETWORKS=1
+      - VOLUMES=1
+      - EVENTS=1
+      - POST=1
+      - DELETE=1
+      # Required for dashboard host info and disk usage
+      - INFO=1
+      - SYSTEM=1
+      # Required for vulnerability scanning
+      - ALLOW_START=1
+      - ALLOW_STOP=1
+      - ALLOW_RESTARTS=1
+      # Optional: enable for terminal access
+      - EXEC=1
+      # More optional - https://github.com/Tecnativa/docker-socket-proxy?tab=readme-ov-file#access-revoked-by-default
+      - AUTH=0
+      - SECRETS=0
+      - POST=0
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - socket-proxy
+
 networks:
   default:
     name: ${CONNET}
     external: true
+  socket-proxy:
+    internal: true
