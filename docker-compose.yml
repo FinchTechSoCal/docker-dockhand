@@ -60,4 +60,5 @@ networks:
     name: ${CONNET}
     external: true
   socket-proxy:
+    name: socket-proxy
     internal: true
