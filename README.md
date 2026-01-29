@@ -17,9 +17,9 @@
 
 **Use**
 ```bash
-rm -fr ~/appdata/docker_files/dockhand
-git clone https://github.com/FinchTechSoCal/docker-dockhand.git ~/appdata/docker_files/dockhand
-sed -i 's;/path/to/appdata/;'$HOME'/appdata/;g' ~/appdata/docker_files/dockhand/.env
+rm -fr ~/appdata/stacks/dockhand
+git clone https://github.com/FinchTechSoCal/docker-dockhand.git ~/appdata/stacks/dockhand
+sed -i 's;/path/to/appdata/;'$HOME'/appdata/;g' ~/appdata/stacks/dockhand/.env
 ```
 
 **Find docker.sock GID**
@@ -30,16 +30,17 @@ stat -c '%g' /var/run/docker.sock
 
 **Modify .env Further**
 ```bash
-nano ~/appdata/docker_files/dockhand/.env
+nano ~/appdata/stacks/dockhand/.env
 ```
 
 **Run**
 ```bash
-docker compose -f ~/appdata/docker_files/dockhand/docker-compose.yml up -d
+docker compose -f ~/appdata/stacks/dockhand/docker-compose.yml up -d
 ```
 
 ## Agent
 [hawser](https://github.com/FinchTechSoCal/docker-hawser)
+
 [hawser official](https://github.com/Finsys/hawser)
 
 ## Docs
