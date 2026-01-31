@@ -4,23 +4,25 @@
 
 services:
   dockhand:
-    image: fnsys/dockhand:latest
+    image: fnsys/dockhand:${IMAGE_TAG}
     container_name: dockhand
     #user: "0:0" # for root
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TZ}
-      - DATA_DIR=${DATA_DIR}
-      - HOST_DATA_DIR=${HOST_DATA_DIR}
+      - ENCRYPTION_KEY=${ENCRYPTION_KEY}
       - SKIP_DF_COLLECTION=${SKIP_DF_COLLECTION}
       - DISABLE_LOCAL_LOGIN=${DISABLE_LOCAL_LOGIN} # https://dockhand.pro/manual/#disable-local-login
+      - LOG_LEVEL=${LOG_LEVEL} # optional
+      - DATA_DIR=${DATA_DIR}
+      - HOST_DATA_DIR=${HOST_DATA_DIR}
     #group_add:
       #- "${DOCKER_GID}"  # Docker group GID for socket access
     volumes:
-      #- ${LOCVOL1}dockhand:/app/data
+      - ${LOCVOL1}dockhand:/app/data
       #- /var/run/docker.sock:/var/run/docker.sock
-      - ${DATA_DIR}:${DATA_DIR}
+      #- ${DATA_DIR}:${DATA_DIR}
     ports:
       - 3000:3000
     restart: unless-stopped

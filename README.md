@@ -14,13 +14,21 @@
 
 ---
 
-
 **Use**
 ```bash
 rm -fr ~/appdata/stacks/dockhand
 git clone https://github.com/FinchTechSoCal/docker-dockhand.git ~/appdata/stacks/dockhand
 sed -i 's;/path/to/appdata/;'$HOME'/appdata/;g' ~/appdata/stacks/dockhand/.env
+sed -i 's;YourOwnSecretKey;'$(openssl rand -base64 32)';g' ~/appdata/stacks/dockhand/.env
 ```
+
+**Run**
+```bash
+docker compose -f ~/appdata/stacks/dockhand/docker-compose.yml up -d
+```
+
+---
+
 
 **Find docker.sock GID**
 ```bash
@@ -33,10 +41,8 @@ stat -c '%g' /var/run/docker.sock
 nano ~/appdata/stacks/dockhand/.env
 ```
 
-**Run**
-```bash
-docker compose -f ~/appdata/stacks/dockhand/docker-compose.yml up -d
-```
+
+
 
 ## Agent
 [hawser](https://github.com/FinchTechSoCal/docker-hawser)
