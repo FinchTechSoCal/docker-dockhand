@@ -4,7 +4,7 @@
 
 services:
   dockhand:
-    image: fnsys/dockhand:${IMAGE_TAG}
+    image: fnsys/dockhand:${IMAGE_TAG:-latest}
     container_name: dockhand
     #user: "0:0" # for root
     environment:
@@ -20,7 +20,7 @@ services:
     group_add:
       - "${DOCKER_GID}"  # Docker group GID for socket access
     volumes:
-      #- ${LOCVOL1}dockhand:/app/data # per documentation, map DATA_DIR instead of mapping /app/data - https://dockhand.pro/manual/#data-dir-contents
+      #- ${APPDATA}dockhand:/app/data # per documentation, map DATA_DIR instead of mapping /app/data - https://dockhand.pro/manual/#data-dir-contents
       - /var/run/docker.sock:/var/run/docker.sock
       - ${DATA_DIR}:${DATA_DIR}
     ports:
