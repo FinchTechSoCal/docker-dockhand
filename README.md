@@ -25,7 +25,7 @@ sed -i 's;DOCKER_GID=998;'DOCKER_GID=$(stat -c '%g' /var/run/docker.sock)';g' /o
 
 **Run**
 ```bash
-docker compose -f /opt/stacks/dockhand/docker-compose.yml up -d
+docker compose -f /opt/stacks/dockhand/compose.yaml up -d
 ```
 
 ---
