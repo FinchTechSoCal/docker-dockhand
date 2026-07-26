@@ -17,12 +17,12 @@ services:
       - LOG_LEVEL=${LOG_LEVEL} # optional
       - DATA_DIR=${DATA_DIR}
       - HOST_DATA_DIR=${HOST_DATA_DIR}
-    #group_add:
-      #- "${DOCKER_GID}"  # Docker group GID for socket access
+    group_add:
+      - "${DOCKER_GID}"  # Docker group GID for socket access
     volumes:
       - ${LOCVOL1}dockhand:/app/data
-      #- /var/run/docker.sock:/var/run/docker.sock
-      #- ${DATA_DIR}:${DATA_DIR}
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ${DATA_DIR}:${DATA_DIR}
     ports:
       - 3000:3000
     restart: unless-stopped

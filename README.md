@@ -16,15 +16,16 @@
 
 **Use**
 ```bash
-rm -fr ~/appdata/stacks/dockhand
-git clone https://github.com/FinchTechSoCal/docker-dockhand.git ~/appdata/stacks/dockhand
-sed -i 's;/path/to/appdata/;'$HOME'/appdata/;g' ~/appdata/stacks/dockhand/.env
-sed -i 's;YourOwnSecretKey;'$(openssl rand -base64 32)';g' ~/appdata/stacks/dockhand/.env
+rm -fr /opt/stacks/dockhand
+mkdir -p /opt/stacks/dockhand
+git clone https://github.com/FinchTechSoCal/docker-dockhand.git /opt/stacks/dockhand
+sed -i 's;YourOwnSecretKey;'$(openssl rand -base64 32)';g' /opt/stacks/dockhand/.env
+sed -i 's;DOCKER_GID=998;'DOCKER_GID=$(stat -c '%g' /var/run/docker.sock)';g' /opt/stacks/dockhand/.env
 ```
 
 **Run**
 ```bash
-docker compose -f ~/appdata/stacks/dockhand/docker-compose.yml up -d
+docker compose -f /opt/stacks/dockhand/docker-compose.yml up -d
 ```
 
 ---
@@ -38,7 +39,7 @@ stat -c '%g' /var/run/docker.sock
 
 **Modify .env Further**
 ```bash
-nano ~/appdata/stacks/dockhand/.env
+nano /opt/stacks/dockhand/.env
 ```
 
 
